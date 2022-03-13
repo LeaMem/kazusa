@@ -1,5 +1,6 @@
 package com.lea.demo;
 
+import com.lea.demo.client.FirstClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -27,7 +28,8 @@ public class NettyClient {
                 .channel(NioSocketChannel.class)
                 .handler(new ChannelInitializer<Channel>() {
                     protected void initChannel(Channel ch) throws Exception {
-                        ch.pipeline().addLast(new StringEncoder());
+//                        ch.pipeline().addLast(new StringEncoder());
+                        ch.pipeline().addLast(new FirstClientHandler());
                     }
                 })
                 .option(ChannelOption.TCP_NODELAY, Boolean.TRUE);
@@ -58,11 +60,11 @@ public class NettyClient {
                         if (future1.isSuccess()) {
                             System.out.println("连接成功");
 
-                            Channel channel = future1.channel();
-                            while (true) {
-                                channel.writeAndFlush(new Date() + createStr(new Random().nextInt(10)));
-                                Thread.sleep(2000);
-                            }
+//                            Channel channel = future1.channel();
+//                            while (true) {
+//                                channel.writeAndFlush(new Date() + createStr(new Random().nextInt(10)));
+//                                Thread.sleep(2000);
+//                            }
 
                         } else if (retry <= 0) {
                             System.err.println("重试次数用完，放弃连接");

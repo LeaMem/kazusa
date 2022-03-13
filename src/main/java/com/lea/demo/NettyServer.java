@@ -1,5 +1,6 @@
 package com.lea.demo;
 
+import com.lea.demo.server.FirstServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -37,12 +38,13 @@ public class NettyServer {
                 .childOption(ChannelOption.TCP_NODELAY, true)
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     protected void initChannel(NioSocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new StringDecoder());
-                        ch.pipeline().addLast(new SimpleChannelInboundHandler<String>() {
-                            protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
-                                System.out.println(msg);
-                            }
-                        });
+//                        ch.pipeline().addLast(new StringDecoder());
+//                        ch.pipeline().addLast(new SimpleChannelInboundHandler<String>() {
+//                            protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
+//                                System.out.println(msg);
+//                            }
+//                        });
+                        ch.pipeline().addLast(new FirstServerHandler());
                     }
                 });
 
